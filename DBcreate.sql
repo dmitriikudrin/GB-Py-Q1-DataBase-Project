@@ -11,7 +11,7 @@ CREATE TABLE users(
     username VARCHAR(50) UNIQUE,
     email VARCHAR(100) UNIQUE,
     password_hash VARCHAR(40),
-    phone INT(11),
+    phone VARCHAR(20),
     type ENUM('user', 'admin')
 ) COMMENT 'Информация об учетных записях пользователей для аутентификации в магазине.';
 CREATE INDEX idx_users_username ON users(username);
@@ -27,7 +27,8 @@ CREATE TABLE profiles(
     lastname VARCHAR(50),
     city VARCHAR(30),
     country VARCHAR(50),
-    about_myself VARCHAR(300) COMMENT 'Раздел "О себе"'
+    about_myself VARCHAR(300) COMMENT 'Раздел "О себе"',
+    avatar LONGBLOB
 ) COMMENT 'Персональные данные пользователя. Привязанна к учетной записи пользователя.';
 
 ALTER TABLE profiles
@@ -161,7 +162,8 @@ DROP TABLE IF EXISTS media_product;
 CREATE TABLE media_product(
     id SERIAL PRIMARY KEY,
     type ENUM('photo', 'video'),
-    product_id BIGINT UNSIGNED NOT NULL
+    product_id BIGINT UNSIGNED NOT NULL,
+    content LONGBLOB
 ) COMMENT 'Содержит медиа файлы на товары.';
 
 ALTER TABLE media_product
@@ -173,7 +175,8 @@ DROP TABLE IF EXISTS media_review;
 CREATE TABLE media_review(
     id SERIAL PRIMARY KEY,
     type ENUM('photo', 'video'),
-    review_id BIGINT UNSIGNED NOT NULL
+    review_id BIGINT UNSIGNED NOT NULL,
+    content LONGBLOB
 ) COMMENT 'Содержит медиа файлы на обзоры.';
 
 ALTER TABLE media_review
