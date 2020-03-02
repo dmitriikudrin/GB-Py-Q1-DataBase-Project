@@ -1,4 +1,4 @@
-CREATE DATABASE inet_shop
+CREATE DATABASE IF NOT EXISTS inet_shop
 DEFAULT CHARSET = utf8;
 
 USE inet_shop;
