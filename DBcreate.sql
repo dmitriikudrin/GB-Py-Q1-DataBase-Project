@@ -12,7 +12,8 @@ CREATE TABLE users(
     email VARCHAR(100) UNIQUE,
     password_hash VARCHAR(40),
     phone VARCHAR(20),
-    type ENUM('user', 'admin')
+    type ENUM('user', 'admin'),
+    is_deleted ENUM('no', 'yes') DEFAULT 'no'
 ) COMMENT 'Информация об учетных записях пользователей для аутентификации в магазине.';
 CREATE INDEX idx_users_username ON users(username);
 CREATE INDEX idx_users_email ON users(email);
@@ -122,7 +123,8 @@ ALTER TABLE basket
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders(
     id      SERIAL PRIMARY KEY,
-    user_id BIGINT UNSIGNED NOT NULL
+    user_id BIGINT UNSIGNED NOT NULL,
+    created_at DATETIME DEFAULT NOW()
 ) COMMENT 'Содержит список сделанных заказов.';
 
 ALTER TABLE orders
